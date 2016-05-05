@@ -59,7 +59,7 @@ GUI:
 	}
 	
 	Gui, Add, Checkbox, w270 h24 x120 y170 vInputForce, Exit after command completed?
-	GuiControl, Choose, InputForce, %IniForce%, 
+	GuiControl, , InputForce, %IniForce%
 	
 	Gui, Add, Button, Center w70 h40 x10 y200 gExecuteHelp, Help
 	Gui, Add, Button, Default Center w305 h40 x85 y200 gExecuteSubmit, Execute
