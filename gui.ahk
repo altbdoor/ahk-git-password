@@ -83,7 +83,7 @@ Project Path : The path to your Git project that you would like to execute comma
 
 Git Command : The string of command you would like to execute. Do note that you can use "&&" to chain commands.
 
-Git Username : The username for the Git repository. This will most likely be left blank for most of the time, included it just because
+Git Username : The username for the Git repository. This will most likely be left blank for most of the time, included it just because.
 
 Git Password : The password for the Git repository.
 

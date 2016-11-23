@@ -111,5 +111,7 @@ ExecuteGitCommand(InputUsername, InputPassword, InputRepeat, InputPath, InputPro
 		Send {Enter}
 	}
 	
+	WinWaitClose, ahk_pid %cmdpid%
+	
 	Return
 }
