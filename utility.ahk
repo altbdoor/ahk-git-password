@@ -110,8 +110,9 @@ ExecuteGitCommand(InputUsername, InputPassword, InputRepeat, InputPath, InputPro
 	If (InputForce == 1) {
 		Send {Enter}
 	}
-	
-	WinWaitClose, ahk_pid %cmdpid%
+	Else {
+		WinWaitClose, ahk_pid %cmdpid%
+	}
 	
 	Return
 }
