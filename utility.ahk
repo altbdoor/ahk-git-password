@@ -80,35 +80,33 @@ ExecuteGitCommand(InputUsername, InputPassword, InputRepeat, InputPath, InputPro
 	{
 		StringReplace, TempPath, InputPath, :, , All
 		StringReplace, TempPath, TempPath, \, /, All
-		SendInput, cd "/%TempPath%"
+		ControlSend, , cd "/%TempPath%", ahk_pid %cmdpid%
 	}
 	Else
 	{
-		SendInput, cd /d "%InputPath%"
+		ControlSend, , cd /d "%InputPath%", ahk_pid %cmdpid%
 	}
 	
-	Send {Enter}
-	SendInput, %InputCommand%
-	Send {Enter}
+	ControlSend, , {Enter}, ahk_pid %cmdpid%
+	ControlSend, , %InputCommand%, ahk_pid %cmdpid%
+	ControlSend, , {Enter}, ahk_pid %cmdpid%
 	
 	Loop, %InputRepeat%
 	{
 		If (InputUsername != "")
 		{
-			Sleep 100
-			SendInput, %InputUsername%
-			Send {Enter}
+			ControlSend, ,  %InputUsername%, ahk_pid %cmdpid%
+			ControlSend, , {Enter}, ahk_pid %cmdpid%
 		}
 		
-		Sleep 100
-		SendInput, %InputPassword%
-		Send {Enter}
+		ControlSend, , %InputPassword%, ahk_pid %cmdpid%
+		ControlSend, , {Enter}, ahk_pid %cmdpid%
 	}
 	
-	SendInput, exit
+	ControlSend, , exit, ahk_pid %cmdpid%
 	
 	If (InputForce == 1) {
-		Send {Enter}
+		ControlSend, , {Enter}, ahk_pid %cmdpid%
 	}
 	Else {
 		WinWaitClose, ahk_pid %cmdpid%

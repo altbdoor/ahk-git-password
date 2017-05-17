@@ -5,6 +5,8 @@
 #NoTrayIcon
 #Include utility.ahk
 
+SetKeyDelay, 0, 10
+
 SettingsFile := A_ScriptDir . "/settings.ini"
 
 SettingsCommandList := ["git pull", "git push", "git fetch"]
