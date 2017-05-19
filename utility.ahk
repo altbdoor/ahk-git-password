@@ -76,41 +76,40 @@ ExecuteGitCommand(InputUsername, InputPassword, InputRepeat, InputPath, InputPro
 	WinWait, ahk_pid %cmdpid%
 	WinActivate, ahk_pid %cmdpid%
 	
+	KeypressesToSend := ""
+	
 	If (InputPrompt == "bash.exe")
 	{
 		StringReplace, TempPath, InputPath, :, , All
 		StringReplace, TempPath, TempPath, \, /, All
-		ControlSend, , cd "/%TempPath%", ahk_pid %cmdpid%
+		
+		KeypressesToSend .= "cd """ . TempPath . """"
 	}
 	Else
 	{
-		ControlSend, , cd /d "%InputPath%", ahk_pid %cmdpid%
+		KeypressesToSend .= "cd /d """ . InputPath . """"
 	}
 	
-	ControlSend, , {Enter}, ahk_pid %cmdpid%
-	ControlSend, , %InputCommand%, ahk_pid %cmdpid%
-	ControlSend, , {Enter}, ahk_pid %cmdpid%
+	KeypressesToSend .= "{Enter}" . InputCommand . "{Enter}"
 	
 	Loop, %InputRepeat%
 	{
 		If (InputUsername != "")
 		{
-			ControlSend, ,  %InputUsername%, ahk_pid %cmdpid%
-			ControlSend, , {Enter}, ahk_pid %cmdpid%
+			KeypressesToSend .= InputUsername . "{Enter}"
 		}
 		
-		ControlSend, , %InputPassword%, ahk_pid %cmdpid%
-		ControlSend, , {Enter}, ahk_pid %cmdpid%
+		KeypressesToSend .= InputPassword . "{Enter}"
 	}
 	
-	ControlSend, , exit, ahk_pid %cmdpid%
+	KeypressesToSend .= "exit"
 	
 	If (InputForce == 1) {
-		ControlSend, , {Enter}, ahk_pid %cmdpid%
+		KeypressesToSend .= "{Enter}"
 	}
-	Else {
-		WinWaitClose, ahk_pid %cmdpid%
-	}
+	
+	SendInput, %KeypressesToSend%
+	WinWaitClose, ahk_pid %cmdpid%
 	
 	Return
 }
